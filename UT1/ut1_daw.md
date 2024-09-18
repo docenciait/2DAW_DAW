@@ -140,7 +140,7 @@ En la siguiente imagen vemos un esquema similar en el que las peticiones van hac
 
 Los navegadores suelen llevar herramientas para depurar las páginas web. En Chrome , si pulsamos F12 y pinchamos en la opción de "Network" (Menu superior), podemos ver todas las peticiones que hace el navegador al cargar una página.
 
-![](img/devtools.PNG)
+![](img/devtools.png)
 
 ---
 ## Ejercicios
