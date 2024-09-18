@@ -236,6 +236,39 @@ Cabeceras que se pueden enviar en la respuesta
 
 - Cache-Control: Cuanto tiempo pueden estar cacheado los datos.
 
+> La cabecera Content-Type es imporante para el programador ya que el servidor puede no saber exactamente el formato de los datos y es necesario que lo indiquemos nosotros.Muchas veces hay ademas problemas con la codificación si es utf-8 o ISO-8859-1 por lo que también se debe indicar.
+
+> Por otro lado notar que Content-Type se puede usar tanto en la petición como en la respuesta. Se usa en la petición si se envían datos en la petición
+
+#### Estados HTTP
+
+Es estado es lo que indica si una petición HTTP ha tenido éxito o no. Sus principales valores son:
+
+- 200-299: La petición ha tenido éxito
+- 300-399: Redirección de los datos.
+- 400-499: Los datos que ha enviado el cliente no son correctos
+- 500-599: Se ha producido un error en el servidor.
+
+Mas información en Códigos de estado HTTP
+
+De entre todos los código están algunos que solemos ver a menudo:
+
+- 204: La petición no retorna datos.
+- 403: Prohibido el acceso al documento
+- 404: No encuentra el documento
+- 500: Error del servidor
+
+#### Métodos
+
+Los métodos ( o verbos) HTTP indican que acción queremos hacer con los datos. Al navegar normalmente se usa siempre el GET.
+
+- GET: Queremos obtener los datos
+- POST: Queremos añadir los datos.
+- PUT: Queremos actualizar nuevos datos.
+- DELETE: Queremos borrar los datos.
+
+
+
 ---
 ## Ejercicios
 
@@ -246,3 +279,19 @@ Navega a la página https://www.apache.org/ e indica:
 - Al menos dos Hosts a los que hace peticiones
 - Las rutas dentro del servidor de 4 recursos.
 - 3 tipos distintos de ficheros que solicita (js o css o png , etc)
+
+#### Ejercicio 2
+
+1. Resumen de la Práctica Completa con http
+2. Realiza una petición GET para obtener un recurso.
+3. Envía una petición POST para crear un nuevo recurso.
+4. Actualiza un recurso existente usando PUT.
+5. Realiza una actualización parcial con PATCH.
+6. Elimina un recurso usando DELETE.
+7. Añade parámetros a la URL en una petición GET.
+8. Usa autenticación básica en una solicitud.
+9. Envía un token en los headers.
+10. Guarda la respuesta de una solicitud en un archivo.
+11. Obtén y muestra solo los headers de la respuesta.
+
+Con HTTPie (http), las peticiones son más legibles y fáciles de escribir en comparación con curl, pero ambas herramientas son extremadamente poderosas para realizar peticiones HTTP.
