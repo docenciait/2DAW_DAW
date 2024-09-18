@@ -191,9 +191,9 @@ Vamos ahora a explicar la petición
 
 - HTTP/1.1 : La versión del protocolo. Prácticamente siempre es 1.1
 
-- Host: www.fpmislata.com: Cabecera llamada Host que indica el nombre del host al que va dirigida la petición.
+- Host: www.miweb.com: Cabecera llamada Host que indica el nombre del host al que va dirigida la petición.
 
-- Accept-Language: fr: Otra cabecera que indica en que idioma queremos que nos retorne los datos. En este caso es en francés.
+- Accept-Language: es: Otra cabecera que indica en que idioma queremos que nos retorne los datos. En este caso es en francés.
 
 Es decir que en una petición HTTP hay una primera línea y luego varias líneas con las cabeceras.
 
