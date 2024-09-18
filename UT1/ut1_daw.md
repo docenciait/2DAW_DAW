@@ -41,5 +41,28 @@ HTTPS: HTTP Secure. Protocolo seguro de comunicación para la web. Surge de apli
 
 ![](img/protocolos.png)
 
+## Protocolo HTTP
+
+El protocolo HTTP es un protocolo para la transferencia de páginas web (hipertexto) entre los clientes (navegadores web) y un servidor web. 
+
+Cuando un usuario, a través del navegador, quiere un documento (página web), éste lo solicita mediante una petición HTTP al servidor. Éste le contestará con una respuesta HTTP y el documento, si dispone de él.
+
+Hay que tener en cuenta que, al contrario que el resto de protocolos que estamos viendo en esta parte, **HTTP no tiene estado**. Eso significa que un servidor web **no almacena ninguna información sobre los clientes que se conectan a él**. Así, cada petición/respuesta supone una conexión única y aislada. 
+
+En cualquier caso, **utilizando tecnologías en el lado servidor es posible escribir aplicaciones web que puedan establecer sesiones o cookies para almacenar ese estado y “recordar”** de alguna manera a los clientes en sucesivas conexiones
+
+![](img/http.png)
+
+A continuación, a modo de ejemplo, podemos ver una petición HTTP que un navegador (Firefox) ha realizado a un sitio web (misitio.com), solicitando el documento index.html.
+
+```
+GET /index.html HTTP/1.1
+ Host: www.misitio.com
+ User-Agent: cliente
+ Referer: www.google.com
+ User-Agent: Mozilla/5.0 (X11; Linux x86_64; rv:45.0) Gecko/20100101 Firefox/45.0
+ Connection: keep-alive
+ [Línea en blanco]
+```
 ---
 ## Ejercicios
