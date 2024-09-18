@@ -64,5 +64,34 @@ GET /index.html HTTP/1.1
  Connection: keep-alive
  [Línea en blanco]
 ```
+
+Y el servidor web le contesta con el contenido del documento para que el navegador que lo ha solicitado lo pueda renderizar para que el usuario lo visualice en su pantalla:
+
+```
+HTTP/1.1 200 OK
+Date: Fri, 31 Dec 2003 23:59:59 GMT
+Content-Type: text/html
+Content-Length: 1221
+ 
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Mi título</title>
+</head>
+<body>
+<h1>Bienvenido a mi sitio.com</h1>
+. . .
+. . .
+</body>
+</html>
+```
+
+### Protocolo SSL/TLS
+
+SSL (Secure Sockets Layer) y TSL (Transport Layer Security) son protocolos de cifrado que se utilizan para cifrar las comunicaciones en Internet. En ocasiones se hace referencia en ambos casos al uso de SSL pero la realidad es que TLS es el sucesor de SSL debido a las diferentes vulnerabilidades que han ido surgiendo de este último.
+
+En este caso, la aplicación de esta capa de seguridad, cifrando las comunicaciones del protocolo HTTP, da lugar a lo que se conoce como HTTPS, que veremos a continuación.
+
+![Protocolo SSL](img/ssl.png)
 ---
 ## Ejercicios
