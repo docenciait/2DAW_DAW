@@ -105,5 +105,43 @@ Su principal utilidad es el cifrado de los mecanismos de autenticación en la we
 Con respecto a la integridad, HTTPS proporciona un mecanismo de autenticación con respecto al sitio web y servidor web que estamos visitando, evitando asi ataques como el del Man in the Middle. Es la manera en la que podemos estar seguros de que el sitio con el que estamos comunicandonos es el que creemos que es.
 
 ![Protocolo HTPS](img/https_protocolo.jpg)
+
+### La web
+
+La web son páginas (En formato HTML, Imagen, JSON, XML ,etc) que se interconectan entre ellas por enlaces (urls).
+
+Su estructura es la siguiente:
+
+![Esquema Web](img/esquema_web.png)
+
+- El navegador solicita por TCP/IP el recurso a obtener. El formato de como solicita ese recurso es por el protocolo HTTP. Y el servidor de TCP/IP responde usando el protocolo HTTP devolviendo los datos.
+
+- En el ejemplo podemos ver que se pide el recurso /index.html. Una vez obtenido , el navegador ve que hay enlaces a otros recursos que también solicita al servidor:
+
+- "/img/main.jpeg", "/css/style.css" y "/js/index.js": Los obtiene del sistema de archivos "/api/clientes.json": Lo obtiene en función de la información de la base de datos
+
+Con todo ello , muestra la página HTML+CSS+Imagen y ejecuta el código JavaScript sobre la página dentro del navegador.
+
+En el host servidor se estaba ejecutando el servidor TCP/IP que entiende el protocolo HTTP. A ese software lo llamaremos servidor Web. 
+
+- El servidor es "personalizable" permitiendo que se ejecute código específico para nuestra aplicación. Ese código específico es el código de servidor que se suele escribir en Java, PHP, NodeJS, etc.
+
+Por lo tanto en una app web hay 3 tipos de código:
+
+- Código de visualización: HTML, CSS, Imágenes, Videos, etc.
+- Código en el cliente: El JavaScript que se ejecuta en el navegador
+- Código en el servidor: El programa específico de la aplicación que se ejecuta en el servidor Web
+
+En la siguiente imagen vemos un esquema similar en el que las peticiones van hacia varios servidores Web
+
+![](img/fetching_a_page.png)
 ---
 ## Ejercicios
+
+### Ejercicio 1
+Navega a la página https://www.apache.org/ e indica:
+
+Nº de peticiones que hace
+Al menos dos Hosts a los que hace peticiones
+Las rutas dentro del servidor de 4 recursos.
+3 tipos distintos de ficheros que solicita (js o css o png , etc)
