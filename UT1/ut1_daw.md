@@ -143,9 +143,9 @@ Los navegadores suelen llevar herramientas para depurar las páginas web. En Chr
 ![](img/dev_tools.png)
 
 
-### El protocolo HTTP
+## El protocolo HTTP
 
-#### Características
+### Características
 
 - Sencillo: Es en modo texto y sacil de usar directamente por una persona.
 
@@ -153,7 +153,7 @@ Los navegadores suelen llevar herramientas para depurar las páginas web. En Chr
 
 - Sin estado: Cada petición es independiente. Eso es un problema en sitios como por ejemplo un carrito de la compra.
 
-#### Ventajas
+### Ventajas
 
 - Cache: Mejora la velocidad al controlar la cache de las páginas
 - Autenticación: Permite identificar a un usuario
@@ -161,7 +161,7 @@ Los navegadores suelen llevar herramientas para depurar las páginas web. En Chr
 - Sesiones: Gracias a las cookies podemos mantener el estado entre peticiones.
 - Formatos: Permite indicar el formato de lo que se envía, de lo que se pide y de lo que se retorna.
 
-#### Formato
+### Formato
 
 El formato lo vamos a explicar sobre un ejemplo.
 
@@ -208,11 +208,33 @@ Pasemos ahora a explicar la respuesta:
 - Content-Type: text/html; charset=utf-8:Cabecera llamada Content-Type que indica el formato MIME type de los datos que retornan y su codificación. En este caso es en HTML y en formato UTF-8.
 - `<!DOCTYPE html…: ` Son finalmente los datos que se han pedido.
 
-#### Cabeceras HTTP
+### Cabeceras HTTP
 
 Existen muchas cabeceras HTTP, podemos ver un listado en [List of HTTP header fields](https://en.wikipedia.org/wiki/List_of_HTTP_header_fields). Pero aquí solo vamos a ver algunas.
 
 Las cabeceras se dividen entre las que se envían en la petición y las que se retorna en la respuesta.
+
+#### Petición
+
+Cabeceras que se pueden enviar en la petición
+
+- Accept: El formato [MIME type](https://en.wikipedia.org/wiki/Media_type) en la que queremos que se retornen los datos. Ej: En text/html, en text/xml, application/json , application/pdf, etc. Luego el servidor los retornará en el formato que quiera/pueda
+
+- Accept-Language: El idioma en el que queremos que nos retorne los datos.. Luego el servidor los retornará en el idioma que quiera/pueda.
+Host: El dominio al que se está enviando la petición. Esta cabecera el muy útil ya que permite en un mismo servidor tener alojados varios dominios.
+
+- Content-Type: El formato de los datos que envian al servidor. Ej: En text/html, en text/xml, application/json , application/pdf, etc. Y como están codificado. Normalmente los formatos son utf-8 o ISO-8859-1.
+
+#### Respuesta
+Cabeceras que se pueden enviar en la respuesta
+
+- Content-Type: El formato de los datos que se retorna. Ej: En text/html, en text/xml, application/json , application/pdf, etc. Y como están codificado. Normalmente los formatos son utf-8 o ISO-8859-1. No tiene porque coincidir con Accept.
+
+- Content-Language: El idioma de los datos que se retorna.
+
+- Content-Length: Tamaño en bytes de los datos
+
+- Cache-Control: Cuanto tiempo pueden estar cacheado los datos.
 
 ---
 ## Ejercicios
@@ -220,7 +242,7 @@ Las cabeceras se dividen entre las que se envían en la petición y las que se r
 ### Ejercicio 1
 Navega a la página https://www.apache.org/ e indica:
 
-Nº de peticiones que hace
-Al menos dos Hosts a los que hace peticiones
-Las rutas dentro del servidor de 4 recursos.
-3 tipos distintos de ficheros que solicita (js o css o png , etc)
+- Nº de peticiones que hace
+- Al menos dos Hosts a los que hace peticiones
+- Las rutas dentro del servidor de 4 recursos.
+- 3 tipos distintos de ficheros que solicita (js o css o png , etc)
