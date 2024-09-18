@@ -142,6 +142,78 @@ Los navegadores suelen llevar herramientas para depurar las páginas web. En Chr
 
 ![](img/dev_tools.png)
 
+
+### El protocolo HTTP
+
+#### Características
+
+- Sencillo: Es en modo texto y sacil de usar directamente por una persona.
+
+- Extensible: Se pueden enviar mas metadatos que los que estan por defecto. Ej: Nº de página
+
+- Sin estado: Cada petición es independiente. Eso es un problema en sitios como por ejemplo un carrito de la compra.
+
+#### Ventajas
+
+- Cache: Mejora la velocidad al controlar la cache de las páginas
+- Autenticación: Permite identificar a un usuario
+- Proxys: Permite de forma transparente usar proxies
+- Sesiones: Gracias a las cookies podemos mantener el estado entre peticiones.
+- Formatos: Permite indicar el formato de lo que se envía, de lo que se pide y de lo que se retorna.
+
+#### Formato
+
+El formato lo vamos a explicar sobre un ejemplo.
+
+Una petición HTTP tiene la siguiente forma:
+
+```
+GET /index.html HTTP/1.1
+Host: www.miweb.com
+Accept-Language: es
+```
+
+La respuesta del servidor es:
+
+```
+HTTP/1.1 200 OK
+Content-Length: 29769
+Content-Type: text/html; charset=utf-8
+
+<!DOCTYPE html... (los 29769 bytes de la página)
+```
+
+Vamos ahora a explicar la petición
+
+- GET: Es el método por el que se piden los datos. Entre sus valores está: GET, PUT,POST, DELETE.
+
+- /index.html: Es la ruta dentro del servidor del documento que estamos pidiendo
+
+- HTTP/1.1 : La versión del protocolo. Prácticamente siempre es 1.1
+
+- Host: www.fpmislata.com: Cabecera llamada Host que indica el nombre del host al que va dirigida la petición.
+
+- Accept-Language: fr: Otra cabecera que indica en que idioma queremos que nos retorne los datos. En este caso es en francés.
+
+Es decir que en una petición HTTP hay una primera línea y luego varias líneas con las cabeceras.
+
+Pasemos ahora a explicar la respuesta:
+
+- HTTP/1.1: La versión del protocolo con la que responde. Prácticamente siempre es 1.1
+
+- 200 OK: Si ha sido existosa o no la petición.
+
+- Content-Length: 29769: Cabecera llamada Content-Length que indica las bytes que ocupan los datos que se retornan
+
+- Content-Type: text/html; charset=utf-8:Cabecera llamada Content-Type que indica el formato MIME type de los datos que retornan y su codificación. En este caso es en HTML y en formato UTF-8.
+- `<!DOCTYPE html…: ` Son finalmente los datos que se han pedido.
+
+#### Cabeceras HTTP
+
+Existen muchas cabeceras HTTP, podemos ver un listado en [List of HTTP header fields](https://en.wikipedia.org/wiki/List_of_HTTP_header_fields). Pero aquí solo vamos a ver algunas.
+
+Las cabeceras se dividen entre las que se envían en la petición y las que se retorna en la respuesta.
+
 ---
 ## Ejercicios
 
