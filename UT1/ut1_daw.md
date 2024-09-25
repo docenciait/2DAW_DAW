@@ -122,7 +122,7 @@ Su estructura es la siguiente:
 
 Con todo ello , muestra la página HTML+CSS+Imagen y ejecuta el código JavaScript sobre la página dentro del navegador.
 
-En el host servidor se estaba ejecutando el servidor TCP/IP que entiende el protocolo HTTP. A ese software lo llamaremos servidor Web. 
+En el host servidor se estaba ejecutando el servidor ![TCP/IP](https://learn.microsoft.com/es-es/dotnet/fundamentals/networking/sockets/socket-services) que entiende el protocolo HTTP. A ese software lo llamaremos servidor Web. 
 
 - El servidor es "personalizable" permitiendo que se ejecute código específico para nuestra aplicación. Ese código específico es el código de servidor que se suele escribir en Java, PHP, NodeJS, etc.
 
