@@ -297,11 +297,31 @@ Accept-Language: fr
 
 ![](img/rest.jpg)
 
-Podríamos decir que REST es usar toda la potencia de HTTP en nuestras propias aplicaciones. Suele usar Por forma general el formato usado en los datos es JSON , es muy sencilla y utiliza todas las características que puede de de HTTP en vez de reinventarse lo que ya tiene HTTP. Esta última característica yo creo que es la que mejor explica que es REST: Si algo ya existe en HTTP y REST siempre funciona bajo HTTP, ¿porque no usar entonces todo lo que ofrece HTTP?. Por lo tanto cuando necesitemos algo en nuestra aplicación siempre debemos preguntarnos , ¿como resuelve este problema ya el protocolo HTTP? Y usarlo en vez de crear nuestra solución.
+- Podríamos decir que REST es usar toda la potencia de HTTP en nuestras propias aplicaciones. 
 
-Las operaciones a realizar
-Vamos a ver 4 método HTTP que coinciden con los 4 métodos de un CRUD o con operaciones de SQL
+- Suele usar de forma general el formato usado en los datos es JSON , es muy sencilla y utiliza todas las características que puede de HTTP en vez de reinventarse lo que ya tiene HTTP. 
 
+- Esta última característica yo creo que es la que mejor explica que es REST: Si algo ya existe en HTTP y REST siempre funciona bajo HTTP, ¿porque no usar entonces todo lo que ofrece HTTP?. 
+
+- Por lo tanto cuando necesitemos algo en nuestra aplicación siempre debemos preguntarnos , ¿como resuelve este problema ya el protocolo HTTP? Y usarlo en vez de crear nuestra solución.
+
+#### Las operaciones a realizar
+
+Vamos a ver 4 métodos HTTP que coinciden con los 4 métodos de un CRUD o con operaciones de SQL
+
+[](img/operacionesrest.PNG)
+
+Donde pone {idLibro} se subtituiría por el id del libro.
+
+El "JSON Enviado" es el JSON que se debe enviar con los datos al hacer esa petición. Como podemos ver solo se envía al insertar o al actualizar. Es decir es el JSON del usuario a insertar o el JSON con los nuevo datos del usuario a modificar.
+
+El "JSON Retornado" es lo que nos retornará el servidor. Como vemos nos retorna un JSON con los datos en todos los casos excepto en el borrado, y no lo hace ya que no existe ningún dato a retornar ya que lo hemos borrado.
+
+#### La Estructura de la URL
+
+Veamos la estructura de la URL de las peticiones en un supuesto ejemplo de una base de datos de usuarios.
+
+[](img/estructuraurl.PNG)
 ---
 ## Ejercicios
 
