@@ -457,7 +457,7 @@ Explicación:
 
 #### Ejercicio 1
 
- Usando curl con la API de prueba de jsonplaceholder.typicode.com. Los ejemplos incluyen las rutas y los recursos adecuados para realizar operaciones CREATE, READ, UPDATE y DELETE en diferentes recursos (como posts, comments, users, etc.).
+ Usando curl con la API de prueba de jsonplaceholder.typicode.com. Los ejemplos incluyen las rutas y los recursos adecuados para realizar operaciones CREATE, READ, UPDATE y DELETE en diferentes recursos (como posts, comments, users, etc.). ** Averigua los códigos HTTP de respuesta **
 
 1. Create (POST): Crear un nuevo post
 2. Read (GET): Obtener todos los posts
@@ -472,3 +472,5 @@ Explicación:
 * Usar -i para incluir las cabeceras HTTP en la respuesta
 * Usar -v para ver la solicitud y la respuesta en detalle
 * Usar -w "%{http_code}" para mostrar solo el código HTTP
+
+
