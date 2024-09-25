@@ -277,7 +277,30 @@ Los métodos ( o verbos) HTTP indican que acción queremos hacer con los datos. 
 - PUT: Queremos actualizar nuevos datos.
 - DELETE: Queremos borrar los datos.
 
+Así por ejemplo si enviamos;
 
+```
+GET /index.html HTTP/1.1
+Host: www.fpmislata.com
+Accept-Language: fr
+```
+
+Obtendremos el fichero index.html pero si enviamos:
+
+``` 
+DELETE /index.html HTTP/1.1
+Host: www.fpmislata.com
+Accept-Language: fr
+```
+
+### REST ( REpresentational State Transfer))
+
+![](img/rest.jpg)
+
+Podríamos decir que REST es usar toda la potencia de HTTP en nuestras propias aplicaciones. Suele usar Por forma general el formato usado en los datos es JSON , es muy sencilla y utiliza todas las características que puede de de HTTP en vez de reinventarse lo que ya tiene HTTP. Esta última característica yo creo que es la que mejor explica que es REST: Si algo ya existe en HTTP y REST siempre funciona bajo HTTP, ¿porque no usar entonces todo lo que ofrece HTTP?. Por lo tanto cuando necesitemos algo en nuestra aplicación siempre debemos preguntarnos , ¿como resuelve este problema ya el protocolo HTTP? Y usarlo en vez de crear nuestra solución.
+
+Las operaciones a realizar
+Vamos a ver 4 método HTTP que coinciden con los 4 métodos de un CRUD o con operaciones de SQL
 
 ---
 ## Ejercicios
