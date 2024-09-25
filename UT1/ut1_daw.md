@@ -371,6 +371,7 @@ Explicación:
 El resto es similar a la solicitud POST, pero el recurso ya existe, y por lo tanto, es actualizado.
 
 4. PATCH Request
+
 La petición PATCH es para realizar una actualización parcial de un recurso. A continuación se muestra cómo se cambia solo un campo del recurso:
 
 ```
@@ -382,6 +383,7 @@ curl -X PATCH https://jsonplaceholder.typicode.com/posts/1 \
 Explicación: Solo estamos actualizando el campo title.
 
 5. DELETE Request
+
 La petición DELETE se utiliza para eliminar un recurso. Aquí eliminamos el post con id=1:
 
 ```
@@ -452,29 +454,21 @@ Explicación:
 ---
 ## Ejercicios
 
-### Ejercicio 1
-Navega a la página https://www.apache.org/ e indica:
 
-- Nº de peticiones que hace
-- Al menos dos Hosts a los que hace peticiones
-- Las rutas dentro del servidor de 4 recursos.
-- 3 tipos distintos de ficheros que solicita (js o css o png , etc)
+#### Ejercicio 1
 
-#### Ejercicio 2
+ Usando curl con la API de prueba de jsonplaceholder.typicode.com. Los ejemplos incluyen las rutas y los recursos adecuados para realizar operaciones CREATE, READ, UPDATE y DELETE en diferentes recursos (como posts, comments, users, etc.).
 
-Investiga cómo se puede sacar el número de versión del http con el comando curl
+1. Create (POST): Crear un nuevo post
+2. Read (GET): Obtener todos los posts
+3. Read (GET): Obtener un post específico
+4. Update (PUT): Actualizar un post existente
+5. Update (PATCH): Actualizar parcialmente un post
+6. Delete (DELETE): Eliminar un post
+7. Create (POST): Crear un nuevo comentario
+8. Read (GET): Obtener todos los comentarios de un post
+9. Delete (DELETE): Eliminar un comentario
 
-#### Ejercicio 3
-
-Para una web que tú elijas:
-
-- Realiza una petición GET para obtener un recurso.
-- Envía una petición POST para crear un nuevo recurso.
-- Actualiza un recurso existente usando PUT.
-- Realiza una actualización parcial con PATCH.
-- Elimina un recurso usando DELETE.
-- Añade parámetros a la URL en una petición GET.
-- Usa autenticación básica en una solicitud.
-- Envía un token en los headers.
-- Guarda la respuesta de una solicitud en un archivo.
-- Obtén y muestra solo los headers de la respuesta.
+* Usar -i para incluir las cabeceras HTTP en la respuesta
+* Usar -v para ver la solicitud y la respuesta en detalle
+* Usar -w "%{http_code}" para mostrar solo el código HTTP
