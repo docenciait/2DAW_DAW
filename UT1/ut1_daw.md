@@ -250,6 +250,8 @@ Cabeceras que se pueden enviar en la respuesta
 
 #### Estados HTTP
 
+[Códigos de Estado HTTP](https://es.wikipedia.org/wiki/Anexo:C%C3%B3digos_de_estado_HTTP)
+
 Es estado es lo que indica si una petición HTTP ha tenido éxito o no. Sus principales valores son:
 
 - 200-299: La petición ha tenido éxito
