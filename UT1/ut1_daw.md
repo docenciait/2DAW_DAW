@@ -149,7 +149,7 @@ Los navegadores suelen llevar herramientas para depurar las páginas web. En Chr
 
 ### Características
 
-- Sencillo: Es en modo texto y sacil de usar directamente por una persona.
+- Sencillo: Es en modo texto y fácil de usar directamente por una persona.
 
 - Extensible: Se pueden enviar mas metadatos que los que estan por defecto. Ej: Nº de página
 
@@ -162,6 +162,11 @@ Los navegadores suelen llevar herramientas para depurar las páginas web. En Chr
 - Proxys: Permite de forma transparente usar proxies
 - Sesiones: Gracias a las cookies podemos mantener el estado entre peticiones.
 - Formatos: Permite indicar el formato de lo que se envía, de lo que se pide y de lo que se retorna.
+
+* [Versiones HTTP](https://developer.mozilla.org/es/docs/Web/HTTP/Basics_of_HTTP/Evolution_of_HTTP)
+* [HTTP/3](https://www.cloudflare.com/es-es/learning/performance/what-is-http3/)
+* [Verificador de Versión](https://http3check.net/)
+* [Proxy Inverso](https://www.cloudflare.com/es-es/learning/cdn/glossary/reverse-proxy/)
 
 ### Formato
 
