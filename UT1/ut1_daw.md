@@ -326,90 +326,129 @@ Veamos la estructura de la URL de las peticiones en un supuesto ejemplo de una b
 --- 
 # Live
 
-```
+
 1. GET Request
 Una petición GET es la más común y sirve para solicitar datos de un servidor. En este caso, solicitamos información de un recurso:
 
-
+```
 curl -X GET https://jsonplaceholder.typicode.com/posts/1
+```
+
 Explicación:
+
 -X GET: especifica el tipo de solicitud (GET es el predeterminado, pero lo incluimos explícitamente).
 La URL es la dirección del recurso.
 
 2. POST Request
 Una petición POST se utiliza para enviar datos al servidor, como crear un nuevo recurso. Para simular esta solicitud, enviamos un objeto JSON:
 
+```
 curl -X POST https://jsonplaceholder.typicode.com/posts \
      -H "Content-Type: application/json" \
      -d '{"title": "foo", "body": "bar", "userId": 1}'
+```
 
 Explicación:
+
 -X POST: Especifica el método POST.
 -H "Content-Type: application/json": Especifica el tipo de contenido, en este caso JSON.
 -d '{"title": "foo", "body": "bar", "userId": 1}': Los datos que enviamos como JSON.
 
 3. PUT Request
+
 La petición PUT se usa para actualizar un recurso existente. En este ejemplo, actualizamos el post con id=1:
 
+```
 curl -X PUT https://jsonplaceholder.typicode.com/posts/1 \
      -H "Content-Type: application/json" \
      -d '{"id": 1, "title": "updated title", "body": "updated body", "userId": 1}'
+```
+
 
 Explicación:
+
 -X PUT: Especifica el método PUT.
 El resto es similar a la solicitud POST, pero el recurso ya existe, y por lo tanto, es actualizado.
+
 4. PATCH Request
 La petición PATCH es para realizar una actualización parcial de un recurso. A continuación se muestra cómo se cambia solo un campo del recurso:
 
+```
 curl -X PATCH https://jsonplaceholder.typicode.com/posts/1 \
      -H "Content-Type: application/json" \
      -d '{"title": "new title"}'
+```
 
 Explicación: Solo estamos actualizando el campo title.
 
 5. DELETE Request
 La petición DELETE se utiliza para eliminar un recurso. Aquí eliminamos el post con id=1:
 
+```
 curl -X DELETE https://jsonplaceholder.typicode.com/posts/1
 Explicación:
 -X DELETE: Especifica que estamos eliminando el recurso indicado por la URL.
+```
 
 6. Enviando Parámetros en una Solicitud GET
 Puedes enviar parámetros en la URL al realizar una solicitud GET. Aquí se muestra cómo hacerlo:
 
+```
 curl -X GET "https://jsonplaceholder.typicode.com/posts?userId=1"
+```
+
 Explicación: Enviamos el parámetro userId=1 en la URL.
 
 7. Autenticación Básica
+
 Algunos recursos requieren autenticación básica. Aquí te muestro cómo enviar las credenciales usuario y contraseña:
 
+```
 curl -u usuario:contraseña https://ejemplo.com/protegido
+```
+
 Explicación:
 -u usuario:contraseña: Envia las credenciales para la autenticación.
 
 8. Enviando Headers Personalizados
+
 Si necesitas enviar headers adicionales en la solicitud, puedes hacerlo con la opción -H:
 
+```
 curl -X GET https://jsonplaceholder.typicode.com/posts/1 \
      -H "Authorization: Bearer <token>"
+```
+
 
 Explicación:
+
 -H "Authorization: Bearer <token>": Envia un token de autenticación en el header.
+
 9. Guardando la Respuesta en un Archivo
+
 Puedes redirigir la salida de la respuesta a un archivo:
 
+```
 curl -X GET https://jsonplaceholder.typicode.com/posts/1 -o respuesta.json
+```
 
 Explicación:
+
 -o respuesta.json: Guarda la respuesta en un archivo llamado respuesta.json.
+
 10. Ver los Headers de Respuesta
+
 Si quieres ver los headers de la respuesta, utiliza la opción -I:
 
+```
 curl -I https://jsonplaceholder.typicode.com/posts/1
+```
+
 
 Explicación:
+
 -I: Muestra solo los headers de la respuesta, sin el cuerpo.
-```
+
 ---
 ## Ejercicios
 
