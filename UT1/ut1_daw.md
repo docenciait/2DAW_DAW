@@ -132,6 +132,8 @@ Por lo tanto en una app web hay 3 tipos de código:
 - Código en el cliente: El JavaScript que se ejecuta en el navegador
 - Código en el servidor: El programa específico de la aplicación que se ejecuta en el servidor Web
 
+- [Estadísticas de Servidores Web](https://w3techs.com/)
+
 En la siguiente imagen vemos un esquema similar en el que las peticiones van hacia varios servidores Web
 
 ![](img/fetching_a_page.png)
