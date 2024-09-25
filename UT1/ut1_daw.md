@@ -190,7 +190,7 @@ Content-Type: text/html; charset=utf-8
 <!DOCTYPE html... (los 29769 bytes de la página)
 ```
 
-Vamos ahora a explicar la petición
+Vamos ahora a explicar la **petición** o **REQUEST**
 
 - **GET**: Es el método por el que se piden los datos. Entre sus valores está: GET, PUT,POST, DELETE.
 
@@ -204,15 +204,16 @@ Vamos ahora a explicar la petición
 
 Es decir que en una petición HTTP hay una primera línea y luego varias líneas con las cabeceras.
 
-Pasemos ahora a explicar la respuesta:
+Pasemos ahora a explicar la **respuesta** o **RESPONSE**:
 
-- HTTP/1.1: La versión del protocolo con la que responde. Prácticamente siempre es 1.1
+- **HTTP/1.1**: La versión del protocolo con la que responde. Prácticamente siempre es 1.1
 
-- 200 OK: Si ha sido existosa o no la petición.
+- **200 OK**: Si ha sido existosa o no la petición.
 
-- Content-Length: 29769: Cabecera llamada Content-Length que indica las bytes que ocupan los datos que se retornan
+- **Content-Length: 29769:** Cabecera llamada Content-Length que indica las bytes que ocupan los datos que se retornan
 
-- Content-Type: text/html; charset=utf-8:Cabecera llamada Content-Type que indica el formato MIME type de los datos que retornan y su codificación. En este caso es en HTML y en formato UTF-8.
+- **Content-Type: text/html; charset=utf-8:** Cabecera llamada Content-Type que indica el formato MIME type de los datos que retornan y su codificación. En este caso es en HTML y en formato UTF-8.
+
 - `<!DOCTYPE html…: ` Son finalmente los datos que se han pedido.
 
 ### Cabeceras HTTP
