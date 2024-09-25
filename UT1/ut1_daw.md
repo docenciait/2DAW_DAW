@@ -309,19 +309,19 @@ Accept-Language: fr
 
 Vamos a ver 4 métodos HTTP que coinciden con los 4 métodos de un CRUD o con operaciones de SQL
 
-[](img/operacionesrest.PNG)
+![](img/operacionesrest.PNG)
 
-Donde pone {idLibro} se subtituiría por el id del libro.
+- Donde pone {idLibro} se subtituiría por el id del libro.
 
-El "JSON Enviado" es el JSON que se debe enviar con los datos al hacer esa petición. Como podemos ver solo se envía al insertar o al actualizar. Es decir es el JSON del usuario a insertar o el JSON con los nuevo datos del usuario a modificar.
+- El "JSON Enviado" es el JSON que se debe enviar con los datos al hacer esa petición. Como podemos ver solo se envía al insertar o al actualizar. Es decir es el JSON del usuario a insertar o el JSON con los nuevo datos del usuario a modificar.
 
-El "JSON Retornado" es lo que nos retornará el servidor. Como vemos nos retorna un JSON con los datos en todos los casos excepto en el borrado, y no lo hace ya que no existe ningún dato a retornar ya que lo hemos borrado.
+- El "JSON Retornado" es lo que nos retornará el servidor. Como vemos nos retorna un JSON con los datos en todos los casos excepto en el borrado, y no lo hace ya que no existe ningún dato a retornar ya que lo hemos borrado.
 
 #### La Estructura de la URL
 
 Veamos la estructura de la URL de las peticiones en un supuesto ejemplo de una base de datos de usuarios.
 
-[](img/estructuraurl.PNG)
+![](img/estructuraurl.PNG)
 
 --- 
 # Live
