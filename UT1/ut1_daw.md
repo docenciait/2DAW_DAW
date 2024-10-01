@@ -484,7 +484,7 @@ Al usar la tecnología de virtualización, tu proveedor de alojamiento web insta
 
 Por lo tanto, un servidor privado virtual (VPS) es tanto virtual como privado porque tienes control absoluto. Está separado de otros usuarios del servidor a nivel del sistema operativo. De hecho, la tecnología VPS es similar a la creación de particiones en tu computadora cuando quieres ejecutar más de un sistema operativo (por ejemplo, Windows y Linux) sin tener que reiniciar.
 
-[](img/vps.gif)
+![](img/vps.gif)
 
 Un VPS te permite configurar tu sitio web dentro de un contenedor seguro con recursos garantizados (memoria, espacio en disco, núcleos de CPU, etc.) que no tienes que compartir con otros usuarios. Con el hosting VPS, tienes el mismo acceso de nivel raíz que si alquilaras un servidor dedicado, pero a un costo mucho más bajo.
 
@@ -496,7 +496,7 @@ El hosting VPS generalmente es elegido por los propietarios de sitios web que ti
 
 Aunque nuestra máquina virtual esté en nuestro ordenador, ya hemos dicho que estamos simulando un VPS remoto. Para conectarnos a una máquina de forma remota y segura, la opción más recomendable es SSH.
 
-[](img/ssh.webp)
+![](img/ssh.webp)
 
 SSH o Secure Shell es un protocolo de red criptográfico para operar servicios de red de forma segura a través de una red no protegida. Las aplicaciones típicas incluyen línea de comandos remota, inicio de sesión y ejecución de comandos remota, pero cualquier servicio de red puede protegerse con SSH.
 
@@ -528,7 +528,7 @@ Este tipo de cifrado utiliza la misma clave para cifrar y para descifrar la info
 
 Este tipo de cifrado utiliza la misma clave para cifrar y para descifrar la información. Por este motivo, la clave debe ser secreta y sólo conocida por el emisor y el receptor del mensaje.
 
-[](img/simetrico.png)
+![](img/simetrico.png)
 
 **Ventajas**
 
@@ -544,7 +544,7 @@ Si alguien no autorizado consigue la clave, podrá espiar la comunicación sin p
 
 En este tipo de cifrados cada usuario utiliza un par de claves: una clave pública y una clave privada. Un mensaje cifrado con la clave pública sólo se puede descifrar con su correspondiente clave privada y viceversa. 
 
-[](img/asimetrico.png)
+![](img/asimetrico.png)
 
 La *clave pública* es accesible a cualquier persona que quiera consultarla, no hace falta que sea transmitida por un canal seguro como en el caso anterior.
 
