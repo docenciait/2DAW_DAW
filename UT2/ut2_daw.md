@@ -75,3 +75,35 @@ Los dos servidores más utilizados para montar páginas web hoy en día son Apac
 **Nginx está orientado a mejorar el rendimiento, soportando mayores cargas de tráfico y usuarios que Apache** ([Problema C10K](https://es.wikipedia.org/wiki/Problema_C10k)), además de ofrecer otras funcionalidades como hacer de proxy. En sus orígenes era especialmente eficiente ofreciendo contenido estático.
 
 ![](img/webservers.jpeg)
+
+Después de ser lanzado, Nginx fue usado principalmente para servir archivos estáticos y como un balanceador de carga o proxy inverso en frente de instalaciones Apache.
+
+Ejemplos de servicios de despliegue de páginas estáticas:
+
+- Netlify
+- Surge
+- GitHub Pages
+- GitLab Pages
+- Firebase
+- Vercel
+- Neocities
+
+Mientras evolucionaba la red, y la necesidad de exprimir hasta la última gota de la velocidad y eficiencia de uso de hardware con este, más sitios empezaron a reemplazar Apache con Nginx por completo, gracias a un software mucho más maduro.
+
+![](img/wsusage.jpeg)
+
+**Razones para usar Nginx**
+
+- Es ligero: Nginx reduce el consumo de RAM.
+
+- Es multiplataforma y fácil de instalar: La mayoría de las grandes distribuciones de GNU/Linux, tienen Nginx en sus repositorios.
+
+- ¡Se puede usar junto a Apache!: Sí, como lo lees, algunas empresas solo usan Nginx para servir contenido estático y Apache para el contenido dinámico.
+
+- Caché : Puedes usar Nginx como caché, con algo de configuración, permitiendo mejorar la eficiencia de tu aplicación sin tocar la programación de la misma.
+
+- Balanceador de carga: Este servidor web puede funcionar como balanceador de carga, distribuyendo el tráfico entre varios servidores, permitiendo mayor escalabilidad.
+
+- Soporte comunitario y profesional: Nginx, Inc está detrás del desarrollo de Nginx, además de la comunidad en general, permitiendo tener un soporte tanto profesional como comunitario.
+
+- Compatibilidad con las aplicaciones web más populares: Nginx es compatible con una gran cantidad de CMS existentes en el mercado,  Go, Java, Node.js, PHP, Python, Ruby. Además como Proxy Inverso a .NET.
