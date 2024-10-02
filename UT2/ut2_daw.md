@@ -1,6 +1,6 @@
 # UNIDAD 2: SERVIDORES WEB
 
-Introducción
+**Introducción**
 
 Con la evolución y el acceso libre a Internet, uno de los principales alicientes que han surgido es la publicación de páginas web donde se pueden almacenar unos contenidos bastante atractivos para nosotros y que, al mismo tiempo, pueden ser consultados desde cualquier del mundo para todos.
 
@@ -18,13 +18,14 @@ El funcionamiento de los servidores web es especial ya que, como si se tratara d
 
 Cabe decir que no todas las peticiones consumen el mismo, y, por ejemplo, aquellas páginas web que ejecuten programas de interacción con el usuario o requieran cifrado (HTTPS) consumen más recursos que otras páginas web con menos interacción.
 
-¿Qué es un servidor web?
+**¿Qué es un servidor web?**
 
 Los servidores web sirven para almacenar contenidos de Internet y facilitar su disponibilidad de forma constante y segura. Cuando visitas una página web desde tu navegador, es en realidad un servidor web el que envía los componentes individuales de dicha página directamente a tu ordenador. Esto quiere decir que para que una página web sea accesible en cualquier momento, el servidor web debe estar permanentemente online.
 
 Toda página accesible en Internet necesita un servidor especial para sus contenidos web. A menudo, las grandes empresas y organizaciones cuentan con un servidor web propio para disponer sus contenidos en Intranet e Internet. Sin embargo, la mayoría de administradores recurren a los centros de datos de proveedores de alojamiento web para sus proyectos. Independientemente de si tienes un servidor web propio o de si alquilas uno externo, siempre necesitarás un software para gestionar los datos de tu página y mantenerla actualizada. En este sentido, tienes la posibilidad de elegir entre varias soluciones de software para servidores web diseñadas para diferentes aplicaciones y sistemas operativos.
 
-Tecnología de servidores web
+**Tecnología de servidores web**
+
 Principalmente, el software de un servidor HTTP es el encargado de proporcionar los datos para la visualización del contenido web.
 
 Para abrir una página web, el usuario solo tiene que escribir el URL correspondiente en la barra de direcciones de su navegador web. El navegador envía una solicitud al servidor web, quien responde, por ejemplo, entregando una página HTML. Esta puede estar alojada como un documento estático en el host o ser generada de forma dinámica, lo que significa que el servidor web tiene que ejecutar un código de programa (p. ej., Java o PHP) antes de tramitar su respuesta.
@@ -32,3 +33,33 @@ Para abrir una página web, el usuario solo tiene que escribir el URL correspond
 El navegador interpreta la respuesta, lo que suele generar automáticamente más solicitudes al servidor a propósito de, por ejemplo, imágenes integradas o archivos CSS (hojas de estilos).
 
 ![](img/tecnologias.png)
+
+El protocolo utilizado para la transmisión es HTTP (o su variante cifrada HTTPS), que se basa, a su vez, en los protocolos de red IP y TCP (y muy rara vez en UDP). 
+
+***Un servidor web puede entregar los contenidos simultáneamente a varios ordenadores o navegadores web. La cantidad de solicitudes (requests) y la velocidad con la que pueden ser procesadas depende, entre otras cosas, del hardware y la carga (número de solicitudes) del host. ***
+
+Sin embargo, la complejidad del contenido también juega un papel importante: 
+
+***los contenidos web dinámicos necesitan más recursos que los contenidos estáticos.***
+
+
+La selección del equipo adecuado para el servidor y la decisión de si este debe ser dedicado, virtual o en la nube, se debe hacer pensando siempre en evitar sobrecargas en el servidor. 
+
+Aunque se haya encontrado un servidor web que se adapta perfectamente a las necesidades del proyecto, siempre se corre el riesgo de que se presenten fallos en él como consecuencia de imprecisiones técnicas o cortes de energía en el centro de datos del host. 
+
+Aunque no es muy frecuente, durante un período de inactividad de este tipo (downtime), la web no estará disponible.
+
+**Otras funciones de los servidores web**
+
+Aunque su principal función es la transferencia de contenido web, muchos programas de servidor web ofrecen características adicionales:
+
+| **Seguridad**  |  **Cifrado de la comunicación entre el servidor web y el cliente vía HTTPS** |
+|---|---|
+|  Autenticación del usuario |  Autenticación HTTP para áreas específicas de una aplicación web
+ |
+|  Redirección |  Redirección de una solicitud de documento por medio de Rewrite Engine
+ |
+ | Redirección |  Almacenamiento en caché de documentos dinámicos para la respuesta eficiente de solicitudes y para evitar una sobrecarga del servidor web |
+ | Asignación de cookies |  Envío y procesamiento de cookies HTTP |
+
+Además del software del servidor, un host puede contener otro tipo de programas, como por ejemplo un servidor FTP para la carga de archivos o un servidor de base de datos para contenidos dinámicos. En general, existen diferentes tipos de servidores web que pueden ser utilizados para numerosos propósitos, por ejemplo, los servidores de correo, los servidores de juegos o los servidores proxy.

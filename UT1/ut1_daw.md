@@ -570,3 +570,139 @@ La *clave privada* sólo la debe conocer su dueño.
 - Hay que asegurarse de que la clave pública es de quién dice ser y no de un impostor que se esté haciendo pasar por él
 
 > Herramientas SSH y WINSCP
+
+## PRÁCTICA 1.1 Cifrado Simétrico con AES
+
+**Paso 1: Crear un archivo de prueba**
+
+Primero, crea un archivo de texto simple para la prueba:
+
+```
+echo "Este es un texto de prueba para cifrar con AES." > archivo.txt
+
+```
+
+**Paso 2: Cifrar el archivo con AES**
+
+Utiliza el siguiente comando para cifrar el archivo con AES-256 en modo CBC (Cipher Block Chaining). Se te pedirá que introduzcas y confirmes una clave de cifrado.
+
+```
+openssl enc -aes-256-cbc -salt -in archivo.txt -out archivo_cifrado.aes
+
+```
+
+**Paso 3: Ver el archivo cifrado**
+
+El archivo archivo_cifrado.aes es ilegible para los humanos:
+
+```cat archivo_cifrado.aes```
+
+**Paso 4: Descifrar el archivo**
+
+Para descifrar el archivo, usa el mismo comando con la opción -d:
+
+```
+openssl enc -aes-256-cbc -d -in archivo_cifrado.aes -out archivo_descifrado.txt
+```
+## PRÁCTICA 1.2 PRÁCTICA Clave Simétrica y Asimétrica
+
+Usaremos dos sistemas, donde uno actuará como Alicia (que cifrará el mensaje) y otro como Bob (que descifrará el mensaje). En este caso, también vamos a proteger la clave privada de Bob con una contraseña.
+
+**Escenario**:
+
+- Máquina 1 (Alicia): Aquí se cifrará el mensaje con la clave pública de Bob.
+- Máquina 2 (Bob): Aquí se generará el par de claves y Bob usará su clave privada protegida por contraseña para descifrar el mensaje.
+
+**Pasos**
+
+**1. Generar el par de claves en la máquina de Bob (Máquina 2)**
+Primero, Bob generará sus claves en su propia máquina, protegiendo su clave privada con una contraseña.
+
+**Paso 1.1**: Generar la clave privada protegida por contraseña en la máquina de Bob
+Bob generará su clave privada con la siguiente instrucción. OpenSSL solicitará una contraseña que será usada para proteger la clave privada
+
+```
+openssl genpkey -algorithm RSA -aes-256-cbc -out bob_privada_con_password.pem -pkeyopt rsa_keygen_bits:2048
+
+```
+
+**Paso 1.2**: Generar la clave pública de Bob
+
+A continuación, Bob extrae la clave pública de su clave privada. Esta clave pública se enviará a Alicia para que ella la use para cifrar mensajes.
+
+```
+openssl rsa -pubout -in bob_privada_con_password.pem -out bob_publica.pem
+
+```
+
+**2. Enviar la clave pública de Bob a Alicia (Máquina 1)**
+
+Bob enviará el archivo bob_publica.pem (su clave pública) a Alicia. Puedes hacerlo de diversas formas, por ejemplo, mediante scp, sftp, o copiando el archivo manualmente.
+
+Ejemplo con scp desde la máquina de Bob a Alicia:
+
+En la máquina de Bob, puedes usar este comando (reemplazando usuario@ip_maquina_alicia con el nombre de usuario y la IP de la máquina de Alicia):
+
+```
+scp bob_publica.pem usuario@ip_maquina_alicia:/ruta/destino
+
+```
+
+**3. Cifrar el mensaje en la máquina de Alicia (Máquina 1)**
+
+Ahora que Alicia tiene la clave pública de Bob, puede usarla para cifrar un mensaje y enviárselo de manera segura.
+
+**Paso 3.1: Crear un mensaje en la máquina de Alicia**
+
+Alicia crea un archivo de texto con el mensaje que quiere enviar:
+
+```
+echo "Hola Bob, este es un mensaje cifrado de Alicia." > mensaje_alicia.txt
+
+```
+
+**Paso 3.2: Cifrar el mensaje con la clave pública de Bob**
+
+Alicia utiliza la clave pública de Bob para cifrar el mensaje. El archivo resultante será un archivo binario cifrado que solo Bob podrá descifrar con su clave privada.
+
+```
+openssl rsautl -encrypt -inkey bob_publica.pem -pubin -in mensaje_alicia.txt -out mensaje_cifrado_alicia.bin
+```
+**4. Enviar el mensaje cifrado a Bob (Máquina 2)**
+
+Alicia ahora envía el archivo cifrado mensaje_cifrado_alicia.bin a Bob. Esto también puede hacerse con scp, sftp, o cualquier método que prefieran.
+
+*Ejemplo con scp desde la máquina de Alicia a Bob:*
+
+```
+scp mensaje_cifrado_alicia.bin usuario@ip_maquina_bob:/ruta/destino
+
+```
+
+**5. Descifrar el mensaje en la máquina de Bob (Máquina 2)**
+
+Una vez que Bob recibe el archivo cifrado, puede proceder a descifrarlo utilizando su clave privada protegida por contraseña.
+
+**Paso 5.1: Descifrar el mensaje usando la clave privada de Bob**
+
+Bob descifra el archivo mensaje_cifrado_alicia.bin usando su clave privada. OpenSSL pedirá la contraseña que Bob configuró al crear su clave privada:
+
+```
+openssl rsautl -decrypt -inkey bob_privada_con_password.pem -in mensaje_cifrado_alicia.bin -out mensaje_descifrado_bob.txt
+
+```
+
+Después de ingresar la contraseña correcta, el archivo mensaje_descifrado_bob.txt contendrá el mensaje original.
+
+**Paso 5.2: Ver el mensaje descifrado**
+
+Bob puede ahora ver el contenido del mensaje descifrado:
+```
+cat mensaje_descifrado_bob.txt
+```
+*Claves importantes:*
+
+- La clave pública de Bob es la que Alicia usa para cifrar el mensaje.
+- La clave privada de Bob, protegida con contraseña, es la que se utiliza para descifrar el mensaje en la máquina de Bob.
+- En ningún momento la clave privada de Bob sale de su máquina, manteniendo la seguridad del sistema.
+- Este flujo garantiza que la comunicación entre Alicia y Bob sea segura y que solo Bob pueda leer el mensaje cifrado que Alicia le envía.*
