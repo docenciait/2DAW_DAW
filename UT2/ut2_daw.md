@@ -107,3 +107,14 @@ Mientras evolucionaba la red, y la necesidad de exprimir hasta la última gota d
 - Soporte comunitario y profesional: Nginx, Inc está detrás del desarrollo de Nginx, además de la comunidad en general, permitiendo tener un soporte tanto profesional como comunitario.
 
 - Compatibilidad con las aplicaciones web más populares: Nginx es compatible con una gran cantidad de CMS existentes en el mercado,  Go, Java, Node.js, PHP, Python, Ruby. Además como Proxy Inverso a .NET.
+
+## PRÁCTICA 1. INSTALACIÓN Y CONFIGURACIÓN DE UN SITIO WEB CON NGINX
+
+
+DESPUÉS AUTOEVALUACIÓN:
+
+- Configuración correcta del servidor web	=> 1 puntos
+- Comprobación del correcto funcionamento del primer sitio web	=> 3 puntos
+- Configuración correcta y comprobación del funcionamento de una segunda web =>	2 puntos
+- Cuestiones finales => 2 puntos
+- Se ha prestado especial atención al formato del documento, haciendo un correcto uso del lenguaje técnico	=> 2 puntos
