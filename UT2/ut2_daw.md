@@ -57,8 +57,7 @@ Aunque su principal función es la transferencia de contenido web, muchos progra
 |---|---|
 |  Autenticación del usuario |  Autenticación HTTP para áreas específicas de una aplicación web
  |
-|  Redirección |  Redirección de una solicitud de documento por medio de Rewrite Engine
- |
+|  Redirección |  Redirección de una solicitud de documento por medio de Rewrite Engine|
  | Redirección |  Almacenamiento en caché de documentos dinámicos para la respuesta eficiente de solicitudes y para evitar una sobrecarga del servidor web |
  | Asignación de cookies |  Envío y procesamiento de cookies HTTP |
 
