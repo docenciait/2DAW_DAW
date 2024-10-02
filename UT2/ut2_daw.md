@@ -72,4 +72,4 @@ Cuando buscamos montar una web podemos elegir una gran cantidad de servidores we
 
 Los dos servidores más utilizados para montar páginas web hoy en día son Apache y Nginx, sin embargo, es imposible decir que uno es mejor que otro ya que cada uno de ellos tiene sus propias fortalezas y debilidades y puede mejorar mejor bajo ciertas circunstancias o simplemente ser más sencillo de utilizar.
 
-Nginx está orientado a mejorar el rendimiento, soportando mayores cargas de tráfico y usuarios que Apache (Problema C10K), además de ofrecer otras funcionalidades como hacer de proxy. En sus orígenes era especialmente eficiente ofreciendo contenido estático.
+Nginx está orientado a mejorar el rendimiento, soportando mayores cargas de tráfico y usuarios que Apache ([Problema C10K](https://es.wikipedia.org/wiki/Problema_C10k)), además de ofrecer otras funcionalidades como hacer de proxy. En sus orígenes era especialmente eficiente ofreciendo contenido estático.
