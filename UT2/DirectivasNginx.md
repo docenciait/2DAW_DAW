@@ -1,6 +1,6 @@
 # Directivas NGINX
 
-![LISTADO ALFABÉTICO DE DIRECTIVAS](https://nginx.org/en/docs/dirindex.html)
+[LISTADO ALFABÉTICO DE DIRECTIVAS](https://nginx.org/en/docs/dirindex.html)
 
 NGINX es un servidor web ligero y altamente configurable, utilizado comúnmente como servidor web, proxy inverso, balanceador de carga y servidor de caché. Su configuración se basa en un archivo de texto plano donde se utilizan **directivas**  que configuran el comportamiento del servidor.
 Las directivas de NGINX pueden clasificarse en dos tipos:
