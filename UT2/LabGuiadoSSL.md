@@ -2,7 +2,7 @@
 
 # Instalar https/43
 
-## Forma 1
+## Método 1
 
 Para agregar HTTPS a un sitio en NGINX, necesitas obtener un certificado SSL/TLS y configurar tu servidor NGINX para usarlo. A continuación te explico cómo hacerlo paso a paso usando **Let's Encrypt**  para obtener un certificado SSL gratuito, junto con la herramienta `Certbot` para facilitar el proceso.
 ### Paso 1: Instalar Certbot 
@@ -123,7 +123,7 @@ Este comando simula el proceso de renovación y te informará si hubo algún pro
 
 Con estos pasos, tu sitio estará protegido con HTTPS y redirigirá automáticamente las conexiones HTTP a HTTPS para asegurar que todo el tráfico esté cifrado.
 
-## Forma 2
+## Método 2
 
 
 Además de usar **Let's Encrypt**  y Certbot, hay otras formas de agregar SSL a un sitio NGINX. A continuación te explico dos métodos alternativos:1. **Usar un certificado SSL comprado a una autoridad certificadora (CA)** Si prefieres no usar Let's Encrypt o necesitas un certificado más personalizado (como un certificado de validación extendida o de una marca específica), puedes comprar un certificado SSL de una autoridad certificadora (CA) como **DigiCert** , **Comodo** , **GoDaddy** , entre otras. Los pasos generales son los siguientes:
@@ -208,7 +208,11 @@ Si todo está correcto, recarga la configuración de NGINX:
 ```bash
 sudo systemctl reload nginx
 ```
+
+## Método 3
+
 2. **Usar un certificado auto-firmado (self-signed)** 
+
 Este método es útil para entornos de desarrollo o pruebas internas. Un certificado auto-firmado no está respaldado por una autoridad certificadora, por lo que los navegadores mostrarán advertencias de seguridad, pero aún proporcionará encriptación SSL.
 
 #### Paso 1: Generar un certificado auto-firmado 

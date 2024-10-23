@@ -3,6 +3,7 @@
 
 Nginx es un servidor web y proxy inverso altamente configurable y eficiente. Su configuración es flexible y modular, lo que permite adaptarlo a diferentes necesidades, desde servir sitios estáticos hasta manejar aplicaciones complejas a gran escala. La configuración de Nginx se organiza principalmente en bloques y directivas que se especifican en archivos de configuración, por defecto ubicados en `/etc/nginx/nginx.conf`.
 Aquí te detallo cómo se estructura y qué significan las principales directivas y bloques de configuración.
+
 1. **Estructura básica del archivo de configuración** 
 El archivo de configuración de Nginx se compone de bloques de configuración (o contextos) y directivas. Las directivas definen acciones específicas, como establecer un valor o habilitar una característica. Los bloques permiten agrupar directivas que se aplican a contextos específicos.
 
@@ -31,6 +32,8 @@ http {
     }
 }
 ```
+- La directiva **http** es la configuración general y dentro podemos poner **server** con las configuraciones de los servidores que deseemos. No obstante, tener la directiva server en sites-available es mucho más cómodo.
+
 2. **Contextos principales de Nginx** 
 Nginx utiliza varios contextos o bloques que agrupan configuraciones específicas:
  
@@ -43,6 +46,7 @@ Nginx utiliza varios contextos o bloques que agrupan configuraciones específica
 - **Server context** : Define un servidor virtual que gestiona peticiones en un puerto específico.
  
 - **Location context** : Define cómo se manejan las peticiones a una URL específica.
+
 3. **Directivas comunes y bloques** **Main Context** 
 Las directivas dentro del bloque principal configuran aspectos generales de Nginx y afectan a todas las instancias del servidor.
  
@@ -63,7 +67,9 @@ worker_processes auto;
 ```nginx
 pid /run/nginx.pid;
 ```
+
 **Events Context** 
+
 Este bloque define cómo Nginx maneja las conexiones.
  
 - `worker_connections`: Especifica el número máximo de conexiones simultáneas que cada proceso worker puede manejar.
@@ -71,7 +77,9 @@ Este bloque define cómo Nginx maneja las conexiones.
 ```nginx
 worker_connections 1024;
 ```
+
 **HTTP Context** 
+
 Este bloque engloba la configuración del protocolo HTTP, donde se pueden definir directivas relacionadas con el manejo de las peticiones HTTP.
  
 - `include`: Permite incluir otros archivos de configuración.
@@ -97,6 +105,7 @@ listen 80;
 ```nginx
 server_name example.com;
 ```
+
 **Location Context** El bloque `location` se utiliza para definir cómo Nginx responde a las solicitudes de determinadas rutas o URL. 
 - `root`: Establece la raíz del documento, es decir, la carpeta en el sistema de archivos desde donde se servirán los archivos.
 
@@ -182,6 +191,7 @@ location = /404.html {
 access_log /var/log/nginx/access.log;
 ```
 6. **Conclusión** 
+
 La configuración de Nginx es muy versátil, permitiendo personalizar desde simples servidores estáticos hasta configuraciones complejas de balanceo de carga y proxy inverso. Las directivas y bloques explicados aquí son solo una introducción; Nginx soporta muchos otros módulos y configuraciones específicas que pueden adaptarse a necesidades más complejas.
 
 Si tienes alguna configuración específica que te gustaría profundizar, no dudes en preguntarme.
@@ -230,19 +240,19 @@ http {
         }
 
         # Subsitio para www.mysite.com/site1
-        location /site1/ {
-            root /var/www/mysite/site1;  # Directorio para /site1
+        location /site1 {
+            alias /var/www/mysite/site1;  # Directorio para /site1
             index index.html;
         }
 
         # Subsitio para www.mysite.com/site1/site12
-        location /site1/site12/ {
-            root /var/www/mysite/site1/site12;  # Directorio para /site1/site12
+        location /site1/site12 {
+            alias /var/www/mysite/site1/site12;  # Directorio para /site1/site12
             index index.html;
         }
 
         # Subsitio para www.mysite.com/site2
-        location /site2/ {
+        location /site2 {
             root /var/www/mysite/site2;  # Directorio para /site2
             index index.html;
         }
@@ -274,11 +284,11 @@ http {
 4. **Subsitios usando `location`:**  
   - `location /` es la ruta principal para `www.mysite.com`, sirviendo archivos desde `/var/www/mysite`.
  
-  - `location /site1/` sirve archivos desde `/var/www/mysite/site1` para las URLs que coincidan con `www.mysite.com/site1`.
+  - `location /site1` sirve archivos desde `/var/www/mysite/site1` para las URLs que coincidan con `www.mysite.com/site1`.
  
-  - `location /site1/site12/` sirve archivos desde `/var/www/mysite/site1/site12` para la URL `www.mysite.com/site1/site12`.
+  - `location /site1/site12` sirve archivos desde `/var/www/mysite/site1/site12` para la URL `www.mysite.com/site1/site12`.
  
-  - `location /site2/` sirve archivos desde `/var/www/mysite/site2` para la URL `www.mysite.com/site2`.
+  - `location /site2` sirve archivos desde `/var/www/mysite/site2` para la URL `www.mysite.com/site2`.
  
 5. **Directiva `index`:**  Define el archivo que Nginx debe buscar cuando accede a un directorio, como `index.html`.
 
@@ -310,6 +320,7 @@ Debes asegurarte de que la estructura de directorios en tu servidor coincida con
 Esta configuración proporciona un enfoque modular y organizado para manejar varias rutas dentro del mismo dominio con facilidad. Si tienes más rutas o sitios para añadir, simplemente puedes replicar el uso de `location` con las rutas y directorios correspondientes.
 
 Cuando trabajas con Nginx, una práctica común es separar las configuraciones de cada sitio en archivos individuales dentro del directorio `sites-available` y luego habilitar estos sitios mediante enlaces simbólicos en el directorio `sites-enabled`. A continuación te mostraré cómo configurar esto en la estructura de `sites-available` y cómo habilitar los sitios en `sites-enabled`.
+
 ### 1. Estructura de archivos 
 
 Nginx usa dos directorios principales para gestionar los sitios web:
@@ -317,6 +328,7 @@ Nginx usa dos directorios principales para gestionar los sitios web:
 - **`/etc/nginx/sites-available/`** : Aquí se guardan los archivos de configuración de cada sitio, pero no están habilitados aún.
  
 - **`/etc/nginx/sites-enabled/`** : Aquí se colocan enlaces simbólicos (`symlink`) a los archivos de configuración en `sites-available`, lo que habilita los sitios.
+
 2. Configuración del archivo para `mysite.com`Vamos a crear un archivo de configuración en `/etc/nginx/sites-available/mysite.com` para el dominio `www.mysite.com` con las rutas que mencionaste.Archivo de configuración para `mysite.com`Crea un archivo en `/etc/nginx/sites-available/mysite.com` con el siguiente contenido:
 
 ```nginx
@@ -331,14 +343,14 @@ server {
     }
 
     # Subsitio para www.mysite.com/site1
-    location /site1/ {
-        root /var/www/mysite/site1;  # Directorio para /site1
+    location /site1 {
+        alias /var/www/mysite/site1;  # Directorio para /site1
         index index.html;
     }
 
     # Subsitio para www.mysite.com/site1/site12
     location /site1/site12/ {
-        root /var/www/mysite/site1/site12;  # Directorio para /site1/site12
+        alias /var/www/mysite/site1/site12;  # Directorio para /site1/site12
         index index.html;
     }
 
@@ -360,7 +372,9 @@ server {
 }
 ```
 Este archivo es similar al ejemplo anterior, pero está listo para ser habilitado mediante el mecanismo de `sites-available` y `sites-enabled`.
+
 ### 3. Habilitar el sitio con un enlace simbólico 
+
 Una vez que hayas creado el archivo de configuración en `sites-available`, el siguiente paso es habilitar el sitio creando un enlace simbólico en `sites-enabled`.
 Para hacerlo, sigue estos pasos:
  
