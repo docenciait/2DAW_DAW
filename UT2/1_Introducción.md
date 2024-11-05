@@ -5,7 +5,7 @@
 1. [Introducción](#introducción)
 2. [NGINX Configuración General](#nginx-configuración-general)
 3. [Usando NGINX con varios Servername en el 80](#Usando-NGINX-con-varios-Servername-en-el-80)
-4. [Directivas NGINX](directivas-nginx)
+4. [Directivas NGINX](#directivas-nginx)
 
 
 # Introducción
