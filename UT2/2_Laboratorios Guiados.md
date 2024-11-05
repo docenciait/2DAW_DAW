@@ -1,4 +1,5 @@
 # Laboratorios prácticos y ejercicios propuestos
+
 [Práctica guiada 1](#Práctica-guiada-1)
 [Práctica guiada 2](#Práctica-guiada-2)
 [Práctica guiada 3](#Práctica-guiada-2)
@@ -429,7 +430,7 @@ Ambos métodos son alternativas válidas dependiendo de tu escenario. Si buscas 
 ---
 
 
-# Práctica guiada 1
+# Práctica guiada 3
 ## Configuración de Autenticación Básica en NGINX 
 
 **Objetivo:** 
