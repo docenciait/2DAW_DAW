@@ -1,3 +1,7 @@
+# Laboratorios prácticos
+
+## Tabla de Contenidos
+
 1.[Práctica guiada – Instalación y configuración de servidor web Nginx](#práctica-guiada)
 2.[Práctica: Configuración de Autenticación Básica en NGINX](#configuración-autenticación)
 
