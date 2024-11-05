@@ -2,8 +2,8 @@
 
 ## Tabla de Contenidos
 
-[Introducción](#introducción)
-[NGINX Configuración General](#nginx-configuración-general)
+1. [Introducción](#introducción)
+2. [NGINX Configuración General](#nginx-configuración-general)
 
 
 # Introducción
