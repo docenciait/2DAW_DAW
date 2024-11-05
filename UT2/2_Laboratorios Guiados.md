@@ -135,7 +135,7 @@ Si no os aparece nada en los logs, podría pasar que el navegador ha cacheado la
 ---
 ---
 
-# Práctica guidada 2
+# Práctica guiada 2
 
 ## Configurar SSL
 
