@@ -3,7 +3,7 @@
 ## Tabla de Contenidos
 
 1. [Introducción](#introducción)
-2. [NGINX Configuración General](#subheading-2)
+2. [NGINX](#nginx-conf-gneral)
 [Subheading 3](#sub-heading-3)
 
 # Introducción
@@ -127,7 +127,7 @@ DESPUÉS AUTOEVALUACIÓN:
 
 ---
 
-# NGINX Congiguración General
+# NGINX
 
 
 # Servidor Web NGINX
