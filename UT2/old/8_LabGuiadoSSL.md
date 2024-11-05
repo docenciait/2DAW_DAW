@@ -1,6 +1,5 @@
-
-
-# Instalar https/43
+# Práctica 2
+## Configurar SSL
 
 ## Método 1
 
