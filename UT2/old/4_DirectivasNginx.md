@@ -188,3 +188,7 @@ location /api/ {
 | proxy_cache_path | Configura la ruta y parámetros del caché | 
 
 Estas directivas son solo una muestra de la vasta capacidad de configuración de NGINX, y pueden combinarse para manejar una variedad de casos de uso.
+
+
+---
+
