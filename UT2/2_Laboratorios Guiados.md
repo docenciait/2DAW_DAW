@@ -5,6 +5,7 @@
 3. [Práctica guiada 3](#Práctica-guiada-3)
 
 # Práctica guiada 1
+
 ## – Instalación y configuración de servidor web Nginx
 
 ## Instalación servidor web Nginx
@@ -134,7 +135,8 @@ Si no os aparece nada en los logs, podría pasar que el navegador ha cacheado la
 ---
 ---
 
-# Práctica 2
+# Práctica guidada 2
+
 ## Configurar SSL
 
 ## Método 1
@@ -291,6 +293,7 @@ Después de la validación, la CA te enviará varios archivos:
 
 - El certificado intermedio y raíz, que conecta tu certificado con la CA.
 Coloca estos archivos en el servidor, por ejemplo, en `/etc/nginx/ssl/`.
+
 #### Paso 3: Configurar NGINX con el certificado 
 
 Modifica el archivo de configuración de tu sitio en NGINX para usar el certificado:
@@ -421,9 +424,6 @@ sudo systemctl reload nginx
 Cuando visites el sitio con el certificado auto-firmado, verás una advertencia en el navegador indicando que la conexión no es segura. Esto se debe a que el certificado no está validado por una autoridad certificadora. Puedes ignorar la advertencia para propósitos de desarrollo.
 
 
----
-
-
 Ambos métodos son alternativas válidas dependiendo de tu escenario. Si buscas simplicidad y un certificado gratuito para producción, Let's Encrypt es la mejor opción. Si necesitas un certificado personalizado o específico de una CA, entonces el primer método con una autoridad certificadora es el adecuado. Para pruebas locales o desarrollo, un certificado auto-firmado es una solución rápida.
 
 ---
@@ -431,6 +431,7 @@ Ambos métodos son alternativas válidas dependiendo de tu escenario. Si buscas 
 
 
 # Práctica guiada 3
+
 ## Configuración de Autenticación Básica en NGINX 
 
 **Objetivo:** 
