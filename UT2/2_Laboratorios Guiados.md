@@ -1,8 +1,8 @@
 # Laboratorios prácticos y ejercicios propuestos
 
-[Práctica guiada 1](#Práctica-guiada-1)
-[Práctica guiada 2](#Práctica-guiada-2)
-[Práctica guiada 3](#Práctica-guiada-2)
+1. [Práctica guiada 1](#Práctica-guiada-1)
+2. [Práctica guiada 2](#Práctica-guiada-2)
+3. [Práctica guiada 3](#Práctica-guiada-3)
 
 # Práctica guiada 1
 ## – Instalación y configuración de servidor web Nginx
