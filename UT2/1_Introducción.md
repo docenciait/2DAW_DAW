@@ -839,28 +839,6 @@ curl cars.example.com/rcf
 
 Un **proxy inverso**  en NGINX se usa para redirigir el tráfico de los clientes al backend de una aplicación (en este caso, una aplicación .NET Core en el puerto `5000`). Básicamente, cuando un cliente hace una solicitud a NGINX, este actúa como intermediario y reenvía la solicitud al backend. Luego, el backend responde a NGINX, y NGINX envía la respuesta de vuelta al cliente.Aquí está el desglose de cada configuración dentro del bloque `location /`:
 
-1. `proxy_pass http://localhost:5000;`Esta línea especifica la dirección del servidor al que NGINX debe reenviar las solicitudes. Aquí, `http://localhost:5000` es el backend, es decir, la aplicación .NET Core que está escuchando en el puerto `5000` en el mismo servidor. 
-
-- **localhost** : Es la dirección IP local, equivalente a `127.0.0.1`.
- 
-- **5000** : Es el puerto en el que tu aplicación está escuchando.
-
-2. `proxy_http_version 1.1;`
-
-Especifica la versión de HTTP que se utilizará para la conexión con el backend. En la mayoría de los casos, HTTP 1.1 es suficiente y permite conexiones más rápidas al admitir conexiones persistentes.
-
-3. `proxy_set_header Upgrade $http_upgrade;`Este encabezado se usa especialmente para manejar **conexiones de WebSocket**  o cualquier tipo de conexión que necesite ser “actualizada” del protocolo HTTP a otro protocolo (por ejemplo, WebSocket). `$http_upgrade` toma el valor del encabezado `Upgrade` de la solicitud del cliente y lo envía al backend.
-
-4. `proxy_set_header Connection keep-alive;`
-Este encabezado asegura que la conexión entre NGINX y el backend se mantenga abierta, evitando que se cierre después de cada solicitud. Esto puede mejorar el rendimiento al evitar el costo de abrir y cerrar conexiones continuamente.
-
-5. `proxy_set_header Host $host;`Establece el encabezado `Host` con el valor de `$host`, que es el nombre del host solicitado por el cliente (por ejemplo, `web2.com`). Esto permite que el backend sepa el dominio original con el que se hizo la solicitud, útil en aplicaciones que gestionan múltiples dominios o requieren el encabezado `Host`.
-
-6. `proxy_cache_bypass $http_upgrade;`Este comando se usa para omitir la caché de proxy cuando se detecta que el encabezado `Upgrade` está presente, lo cual es útil para conexiones de WebSocket o cualquier otra conexión que necesite evitar la caché.
-
-7. `proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;`Agrega la dirección IP del cliente original en el encabezado `X-Forwarded-For`. Esto es útil para que el backend sepa la IP real del cliente en lugar de ver la dirección de NGINX. `$proxy_add_x_forwarded_for` combina la IP del cliente con la dirección de los proxies anteriores, si los hubiera.
-
-8. `proxy_set_header X-Forwarded-Proto $scheme;`Define el esquema (`http` o `https`) que el cliente original usó para hacer la solicitud. Esto es especialmente útil en aplicaciones que necesitan saber si la solicitud original fue segura (HTTPS) o no, y permite manejar redirecciones a HTTPS en el backend, si es necesario.
 
 ## Configuración PROXY INVERSO para .NET
 
@@ -933,6 +911,42 @@ server {
     }
 }
 ```
+## Explicación de location
+
+El fichero de configuración de NGINX para un proxy inverso utiliza un bloque `location` para definir cómo manejar las solicitudes a una ruta específica. En este caso, el bloque `location / { ... }` define cómo se deben procesar todas las solicitudes que comienzan en el directorio raíz `/`. A continuación, desglosamos cada directiva dentro del bloque:1. `proxy_pass http://localhost:5000;` 
+- Esta directiva redirige las solicitudes entrantes en NGINX a un servidor en segundo plano (backend) que está escuchando en `http://localhost:5000`.
+ 
+- `localhost:5000` representa una aplicación (por ejemplo, una aplicación web en un servidor que escucha en el puerto 5000) que NGINX sirve como intermediario.
+2. `proxy_http_version 1.1;`
+- Especifica la versión HTTP que NGINX usará para comunicarse con el servidor de backend.
+
+- HTTP/1.1 permite mantener conexiones abiertas, lo cual es importante para mantener una comunicación fluida y rápida, sobre todo si se utilizan conexiones persistentes (como websockets).
+3. `proxy_set_header Upgrade $http_upgrade;` 
+- Agrega una cabecera `Upgrade` a la solicitud enviada al servidor de backend.
+ 
+- `$http_upgrade` toma el valor de la cabecera `Upgrade` de la solicitud original y la transfiere al backend. Esto es importante para admitir websockets, donde la conexión necesita "mejorarse" de HTTP a WebSocket.
+4. `proxy_set_header Connection keep-alive;` 
+- Establece la cabecera `Connection` en `keep-alive` para mantener la conexión abierta entre el cliente y el servidor en lugar de cerrarla después de cada solicitud.
+
+- Esto mejora el rendimiento en casos donde el servidor y cliente esperan enviar y recibir múltiples solicitudes sin reestablecer la conexión.
+5. `proxy_set_header Host $host;` 
+- Configura la cabecera `Host` para el servidor de backend usando el valor del host solicitado originalmente (`$host`).
+ 
+- Esto ayuda a garantizar que el servidor de backend trate la solicitud como si viniera directamente de la URL original solicitada, y no desde `localhost:5000`.
+6. `proxy_cache_bypass $http_upgrade;` 
+- Evita la caché para las solicitudes que contienen la cabecera `Upgrade`, necesaria para admitir conexiones de tipo WebSocket.
+
+- Esto es crucial para mantener conexiones interactivas, como en aplicaciones en tiempo real.
+7. `proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;` 
+- Añade una cabecera `X-Forwarded-For` para el backend que contiene la dirección IP del cliente original.
+ 
+- `$proxy_add_x_forwarded_for` permite que el backend identifique el IP del cliente real, útil para registros y análisis de seguridad.
+8. `proxy_set_header X-Forwarded-Proto $scheme;` 
+- Define el esquema (`http` o `https`) que el cliente original usó para acceder al recurso.
+ 
+- Esto es importante cuando NGINX está detrás de un balanceador de carga y necesitas saber si la conexión original era `https` o `http`, ayudando al backend a entender el protocolo usado originalmente.
+En resumen, esta configuración permite que NGINX actúe como un intermediario o proxy inverso entre los clientes y el servidor backend en `http://localhost:5000`.
+
 
 ---
 
