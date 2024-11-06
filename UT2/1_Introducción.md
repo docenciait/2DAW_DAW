@@ -6,7 +6,7 @@
 2. [NGINX Configuración General](#nginx-configuración-general)
 3. [Usando NGINX con varios Servername en el 80](#Usando-NGINX-con-varios-Servername-en-el-80)
 4. [Directivas NGINX](#directivas-nginx)
-5. [Proxy Inverso](Proxy-Inverso)
+5. [Proxy Inverso](#Proxy-Inverso)
 
 
 # Introducción
