@@ -141,7 +141,17 @@ Si no os aparece nada en los logs, podría pasar que el navegador ha cacheado la
 
 ## Método 1
 
+**ATENCIÓN:**
+- Este método sólo funciona con nombres dns que resuelvan externamente y sean válidos. **No valen los server names que hagas de pruebas con nginx.**.
+
+- Registrar un servicio [No-IP](https://my.noip.com/)
+- Si tienes un servidor online tendría que apuntar a ese servidor si tienes un NGINX en casa, debería hacer un forwarding o mapeo de puertos de la ip que te provea my.noip a la ip local interna por el puerto 443.
+
+El método de CERTBOT ofrece una solución libre y completamente gratuita para crear certificados autofirmados para sitios: [certbot](https://certbot.eff.org/)
+
+
 Para agregar HTTPS a un sitio en NGINX, necesitas obtener un certificado SSL/TLS y configurar tu servidor NGINX para usarlo. A continuación te explico cómo hacerlo paso a paso usando **Let's Encrypt**  para obtener un certificado SSL gratuito, junto con la herramienta `Certbot` para facilitar el proceso.
+
 ### Paso 1: Instalar Certbot 
 
 Certbot es una herramienta que automatiza la obtención y renovación de certificados SSL de Let's Encrypt.
@@ -267,36 +277,27 @@ Además de usar **Let's Encrypt**  y Certbot, hay otras formas de agregar SSL a 
 
 #### Paso 1: Generar una Solicitud de Firma de Certificado (CSR) 
  
-1. Genera una clave privada:
+1. Genera una clave privada (.key)
+2. Genera un CSR (Certificate Signing Request) (.crt)
 
-
-```bash
-sudo openssl genrsa -out /etc/nginx/ssl/midominio.key 2048
-```
- 
-2. Genera un CSR (Certificate Signing Request):
-
+**Atención: Ya está cambiado para que funcione!!**
 
 ```bash
-sudo openssl req -new -key /etc/nginx/ssl/midominio.key -out /etc/nginx/ssl/midominio.csr
+sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/nginx-selfsigned.key -out /etc/nginx/ssl/nginx-selfsigned.crt
+
+```bash
+sudo openssl dhparam -out /etc/ssl/nginx/dhparam.pem 1024
+
 ```
 
 Durante este proceso, se te pedirá que ingreses la información del dominio, como el nombre común (dominio), la organización y otros detalles.
  
-3. Envía el archivo `.csr` a la autoridad certificadora de tu elección cuando realices la compra del certificado.
 
-#### Paso 2: Recibir e instalar el certificado 
-
-Después de la validación, la CA te enviará varios archivos:
- 
-- El certificado del dominio (generalmente con la extensión `.crt`).
-
-- El certificado intermedio y raíz, que conecta tu certificado con la CA.
-Coloca estos archivos en el servidor, por ejemplo, en `/etc/nginx/ssl/`.
-
-#### Paso 3: Configurar NGINX con el certificado 
+#### Paso 2: Configurar NGINX con el certificado 
 
 Modifica el archivo de configuración de tu sitio en NGINX para usar el certificado:
+
+> La segunda configuración server es para redirigir el tráfico 80 a 443, de esta forma no se utiliza 80 pero se redirige toda url que el usuario ponga como http y pasará a https
 
 
 ```nginx
@@ -332,7 +333,7 @@ server {
  
 - `ssl_trusted_certificate`: Apunta al archivo que contiene los certificados intermedios y raíz que te proporciona la CA.
 
-#### Paso 4: Verificar y recargar NGINX 
+#### Paso 3: Verificar y recargar NGINX 
 
 Verifica la configuración de NGINX:
 
@@ -348,7 +349,7 @@ Si todo está correcto, recarga la configuración de NGINX:
 sudo systemctl reload nginx
 ```
 
-## Método 3
+## Método 3 (Alternativo)
 
 2. **Usar un certificado auto-firmado (self-signed)** 
 
@@ -388,6 +389,10 @@ server {
     # Configuración de SSL con el certificado auto-firmado
     ssl_certificate /etc/nginx/ssl/selfsigned.crt;
     ssl_certificate_key /etc/nginx/ssl/selfsigned.key;
+
+     # SSL configuraciones recomendadas
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_prefer_server_ciphers on;
 
     location / {
         try_files $uri $uri/ =404;
@@ -526,7 +531,7 @@ Abre un navegador e ingresa la URL de tu sitio (por ejemplo, `http://midominio.c
 3. **Agregar restricciones por IP** : Investiga cómo limitar el acceso a determinadas direcciones IP además de la autenticación básica.
 
 
----
-
 
 Con esta práctica habrás aprendido a proteger sitios web con autenticación básica en NGINX, asegurando que solo usuarios autorizados puedan acceder a los recursos.
+
+---
