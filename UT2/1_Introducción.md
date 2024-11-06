@@ -5,9 +5,9 @@
 1. [Introducción](#introducción)
 2. [NGINX Configuración General](#nginx-configuración-general)
 3. [Usando NGINX con varios Servername en el 80](#Usando-NGINX-con-varios-Servername-en-el-80)
-4. [Directivas NGINX](#directivas-nginx)
-5. [Proxy Inverso](#Proxy-Inverso)
-
+4. [Proxy Inverso](#Proxy-Inverso)
+5. [Autenticación NGINX](#autenticación-nginx)
+6. [Directivas NGINX](#directivas-nginx)
 
 # Introducción
 
@@ -835,6 +835,175 @@ curl cars.example.com/rcf
 
 ---
 
+# Proxy Inverso
+
+Un **proxy inverso**  en NGINX se usa para redirigir el tráfico de los clientes al backend de una aplicación (en este caso, una aplicación .NET Core en el puerto `5000`). Básicamente, cuando un cliente hace una solicitud a NGINX, este actúa como intermediario y reenvía la solicitud al backend. Luego, el backend responde a NGINX, y NGINX envía la respuesta de vuelta al cliente.Aquí está el desglose de cada configuración dentro del bloque `location /`:1. `proxy_pass http://localhost:5000;`Esta línea especifica la dirección del servidor al que NGINX debe reenviar las solicitudes. Aquí, `http://localhost:5000` es el backend, es decir, la aplicación .NET Core que está escuchando en el puerto `5000` en el mismo servidor. 
+
+- **localhost** : Es la dirección IP local, equivalente a `127.0.0.1`.
+ 
+- **5000** : Es el puerto en el que tu aplicación está escuchando.
+
+2. `proxy_http_version 1.1;`
+
+Especifica la versión de HTTP que se utilizará para la conexión con el backend. En la mayoría de los casos, HTTP 1.1 es suficiente y permite conexiones más rápidas al admitir conexiones persistentes.
+
+3. `proxy_set_header Upgrade $http_upgrade;`Este encabezado se usa especialmente para manejar **conexiones de WebSocket**  o cualquier tipo de conexión que necesite ser “actualizada” del protocolo HTTP a otro protocolo (por ejemplo, WebSocket). `$http_upgrade` toma el valor del encabezado `Upgrade` de la solicitud del cliente y lo envía al backend.4. `proxy_set_header Connection keep-alive;`
+Este encabezado asegura que la conexión entre NGINX y el backend se mantenga abierta, evitando que se cierre después de cada solicitud. Esto puede mejorar el rendimiento al evitar el costo de abrir y cerrar conexiones continuamente.
+
+5. `proxy_set_header Host $host;`Establece el encabezado `Host` con el valor de `$host`, que es el nombre del host solicitado por el cliente (por ejemplo, `web2.com`). Esto permite que el backend sepa el dominio original con el que se hizo la solicitud, útil en aplicaciones que gestionan múltiples dominios o requieren el encabezado `Host`.6. `proxy_cache_bypass $http_upgrade;`Este comando se usa para omitir la caché de proxy cuando se detecta que el encabezado `Upgrade` está presente, lo cual es útil para conexiones de WebSocket o cualquier otra conexión que necesite evitar la caché.7. `proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;`Agrega la dirección IP del cliente original en el encabezado `X-Forwarded-For`. Esto es útil para que el backend sepa la IP real del cliente en lugar de ver la dirección de NGINX. `$proxy_add_x_forwarded_for` combina la IP del cliente con la dirección de los proxies anteriores, si los hubiera.8. `proxy_set_header X-Forwarded-Proto $scheme;`Define el esquema (`http` o `https`) que el cliente original usó para hacer la solicitud. Esto es especialmente útil en aplicaciones que necesitan saber si la solicitud original fue segura (HTTPS) o no, y permite manejar redirecciones a HTTPS en el backend, si es necesario.
+
+## Configuración PROXY INVERSO para .NET
+
+1. Agregar repositorio Microsoft:
+
+```bash
+wget https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+sudo dpkg -i packages-microsoft-prod.deb
+sudo apt update
+
+```
+
+2. Instalar el SDK .NET y verificar instalación:
+
+```bash
+sudo apt install dotnet-sdk-8.0
+dotnet --version
+
+```
+
+3. Crear aplicación .NET Core de prueba
+
+```bash
+dotnet new mvc -n web2
+
+```
+
+4. Publicamos la aplicación .net
+```bash
+dotnet publish --configuration Release
+  Determining projects to restore...
+  Restored /home/devuser/dotnet-projects/web2/web2.csproj (in 103 ms).
+  web2 -> /home/devuser/dotnet-projects/web2/bin/Release/net8.0/web2.dll
+  web2 -> /home/devuser/dotnet-projects/web2/bin/Release/net8.0/publish/
+
+```
+
+5. Ejecutar aplicación
+
+```bash
+
+$ dotnet /home/devuser/dotnet-projects/web2/bin/Release/net8.0/web2.dll
+info: Microsoft.Hosting.Lifetime[14]
+      Now listening on: http://localhost:5000
+info: Microsoft.Hosting.Lifetime[0]
+      Application started. Press Ctrl+C to shut down.
+info: Microsoft.Hosting.Lifetime[0]
+      Hosting environment: Production
+info: Microsoft.Hosting.Lifetime[0]
+      Content root path: /home/devuser/dotnet-projects/web2/bin/Release/net8.0/publish
+
+```
+
+6. Creamos un site en NGINX
+
+```bash
+server {
+    listen 8080;
+    server_name web2.com;
+
+    location / {
+        proxy_pass http://localhost:5000;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection keep-alive;
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+```
+
+---
+
+# Autenticación NGINX
+
+La autenticación en NGINX se utiliza para proteger el acceso a recursos específicos de un servidor web mediante diversas técnicas. Aquí te explico los métodos comunes:
+
+### 1. Autenticación Básica (Basic Authentication) 
+
+Este es el método más común en NGINX y consiste en solicitar un nombre de usuario y una contraseña para acceder a un recurso protegido.
+
+#### Configuración: 
+ 
+1. Primero, crea un archivo de contraseñas utilizando `htpasswd` (si no lo tienes, puedes instalarlo a través de Apache utils).
+
+```bash
+htpasswd -c /etc/nginx/.htpasswd usuario
+```
+Esto generará un archivo `.htpasswd` en la ruta especificada.
+ 
+2. Luego, agrega la configuración en el bloque de servidor o en una location específica en el archivo de configuración de NGINX:
+
+
+```nginx
+location /protected {
+    auth_basic "Área restringida";
+    auth_basic_user_file /etc/nginx/.htpasswd;
+}
+```
+ 
+  - `auth_basic "Área restringida";` establece un mensaje que se muestra al pedir las credenciales.
+ 
+  - `auth_basic_user_file` indica la ruta del archivo de contraseñas.
+Con esta configuración, cualquier intento de acceso a `/protected` requerirá las credenciales configuradas en `.htpasswd`.
+### 2. Autenticación Mediante IP 
+
+Puedes permitir o denegar acceso a ciertos recursos basándote en la dirección IP del cliente. Esto no es propiamente una autenticación de usuario, pero permite restringir el acceso a un conjunto específico de IPs.
+
+
+```nginx
+location /admin {
+    allow 192.168.1.1;    # Permite esta IP
+    allow 192.168.1.0/24; # Permite toda una subred
+    deny all;             # Deniega el resto
+}
+```
+
+### 3. Autenticación con Certificados SSL (Cliente) 
+
+En entornos más seguros, puedes exigir que los usuarios se autentiquen mediante certificados de cliente SSL. Esto se usa en escenarios donde es necesario un nivel más alto de seguridad.
+
+#### Configuración: 
+ 
+1. Primero, configura NGINX para solicitar certificados de cliente:
+
+
+```nginx
+server {
+    listen 443 ssl;
+    ssl_certificate /path/to/your_server_cert.crt;
+    ssl_certificate_key /path/to/your_server_key.key;
+
+    ssl_client_certificate /path/to/ca_certificate.crt; # Certificado CA del cliente
+    ssl_verify_client on;
+    
+    location /secure {
+        # Aquí puedes añadir más configuraciones
+    }
+}
+```
+ 
+  - `ssl_verify_client on;` obliga a NGINX a verificar el certificado del cliente.
+ 
+  - `ssl_client_certificate` define el certificado de la autoridad de certificación que verifica los certificados de cliente.
+ 
+2. Cada cliente debe tener un certificado firmado por la autoridad especificada para acceder a `/secure`.
+
+---
+
+---
+
 # Directivas NGINX
 
 [LISTADO ALFABÉTICO DE DIRECTIVAS](https://nginx.org/en/docs/dirindex.html)
@@ -1025,95 +1194,3 @@ location /api/ {
 | proxy_cache_path | Configura la ruta y parámetros del caché | 
 
 Estas directivas son solo una muestra de la vasta capacidad de configuración de NGINX, y pueden combinarse para manejar una variedad de casos de uso.
-
-
----
-
-# Proxy Inverso
-
-Un **proxy inverso**  en NGINX se usa para redirigir el tráfico de los clientes al backend de una aplicación (en este caso, una aplicación .NET Core en el puerto `5000`). Básicamente, cuando un cliente hace una solicitud a NGINX, este actúa como intermediario y reenvía la solicitud al backend. Luego, el backend responde a NGINX, y NGINX envía la respuesta de vuelta al cliente.Aquí está el desglose de cada configuración dentro del bloque `location /`:1. `proxy_pass http://localhost:5000;`Esta línea especifica la dirección del servidor al que NGINX debe reenviar las solicitudes. Aquí, `http://localhost:5000` es el backend, es decir, la aplicación .NET Core que está escuchando en el puerto `5000` en el mismo servidor. 
-
-- **localhost** : Es la dirección IP local, equivalente a `127.0.0.1`.
- 
-- **5000** : Es el puerto en el que tu aplicación está escuchando.
-
-2. `proxy_http_version 1.1;`
-
-Especifica la versión de HTTP que se utilizará para la conexión con el backend. En la mayoría de los casos, HTTP 1.1 es suficiente y permite conexiones más rápidas al admitir conexiones persistentes.
-
-3. `proxy_set_header Upgrade $http_upgrade;`Este encabezado se usa especialmente para manejar **conexiones de WebSocket**  o cualquier tipo de conexión que necesite ser “actualizada” del protocolo HTTP a otro protocolo (por ejemplo, WebSocket). `$http_upgrade` toma el valor del encabezado `Upgrade` de la solicitud del cliente y lo envía al backend.4. `proxy_set_header Connection keep-alive;`
-Este encabezado asegura que la conexión entre NGINX y el backend se mantenga abierta, evitando que se cierre después de cada solicitud. Esto puede mejorar el rendimiento al evitar el costo de abrir y cerrar conexiones continuamente.
-
-5. `proxy_set_header Host $host;`Establece el encabezado `Host` con el valor de `$host`, que es el nombre del host solicitado por el cliente (por ejemplo, `web2.com`). Esto permite que el backend sepa el dominio original con el que se hizo la solicitud, útil en aplicaciones que gestionan múltiples dominios o requieren el encabezado `Host`.6. `proxy_cache_bypass $http_upgrade;`Este comando se usa para omitir la caché de proxy cuando se detecta que el encabezado `Upgrade` está presente, lo cual es útil para conexiones de WebSocket o cualquier otra conexión que necesite evitar la caché.7. `proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;`Agrega la dirección IP del cliente original en el encabezado `X-Forwarded-For`. Esto es útil para que el backend sepa la IP real del cliente en lugar de ver la dirección de NGINX. `$proxy_add_x_forwarded_for` combina la IP del cliente con la dirección de los proxies anteriores, si los hubiera.8. `proxy_set_header X-Forwarded-Proto $scheme;`Define el esquema (`http` o `https`) que el cliente original usó para hacer la solicitud. Esto es especialmente útil en aplicaciones que necesitan saber si la solicitud original fue segura (HTTPS) o no, y permite manejar redirecciones a HTTPS en el backend, si es necesario.
-
-## Configuración PROXY INVERSO para .NET
-
-1. Agregar repositorio Microsoft:
-
-```bash
-wget https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
-sudo dpkg -i packages-microsoft-prod.deb
-sudo apt update
-
-```
-
-2. Instalar el SDK .NET y verificar instalación:
-
-```bash
-sudo apt install dotnet-sdk-8.0
-dotnet --version
-
-```
-
-3. Crear aplicación .NET Core de prueba
-
-```bash
-dotnet new mvc -n web2
-
-```
-
-4. Publicamos la aplicación .net
-```bash
-dotnet publish --configuration Release
-  Determining projects to restore...
-  Restored /home/devuser/dotnet-projects/web2/web2.csproj (in 103 ms).
-  web2 -> /home/devuser/dotnet-projects/web2/bin/Release/net8.0/web2.dll
-  web2 -> /home/devuser/dotnet-projects/web2/bin/Release/net8.0/publish/
-
-```
-
-5. Ejecutar aplicación
-
-```bash
-
-$ dotnet /home/devuser/dotnet-projects/web2/bin/Release/net8.0/web2.dll
-info: Microsoft.Hosting.Lifetime[14]
-      Now listening on: http://localhost:5000
-info: Microsoft.Hosting.Lifetime[0]
-      Application started. Press Ctrl+C to shut down.
-info: Microsoft.Hosting.Lifetime[0]
-      Hosting environment: Production
-info: Microsoft.Hosting.Lifetime[0]
-      Content root path: /home/devuser/dotnet-projects/web2/bin/Release/net8.0/publish
-
-```
-
-6. Creamos un site en NGINX
-
-```bash
-server {
-    listen 8080;
-    server_name web2.com;
-
-    location / {
-        proxy_pass http://localhost:5000;
-        proxy_http_version 1.1;
-        proxy_set_header Upgrade $http_upgrade;
-        proxy_set_header Connection keep-alive;
-        proxy_set_header Host $host;
-        proxy_cache_bypass $http_upgrade;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
-    }
-}
-```
