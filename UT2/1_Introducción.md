@@ -839,6 +839,8 @@ curl cars.example.com/rcf
 
 Un **proxy inverso**  en NGINX se usa para redirigir el tráfico de los clientes al backend de una aplicación (en este caso, una aplicación .NET Core en el puerto `5000`). Básicamente, cuando un cliente hace una solicitud a NGINX, este actúa como intermediario y reenvía la solicitud al backend. Luego, el backend responde a NGINX, y NGINX envía la respuesta de vuelta al cliente.Aquí está el desglose de cada configuración dentro del bloque `location /`:
 
+[](img/reverse_proxy.png)
+
 
 ## Configuración PROXY INVERSO para .NET
 
