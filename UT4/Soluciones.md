@@ -1,7 +1,32 @@
 # Laboratorio 1: Despliegue con Script Shell
 
 # Crear un archivo `deploy.sh` con el siguiente contenido:
+Dockefile para django:
+``` 
+# Usar la imagen base de Python
+FROM python:3.10
+
+# Establecer el directorio de trabajo dentro del contenedor
+WORKDIR /app
+
+
+# Copiar el archivo de requerimientos e instalar dependencias
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copiar el código de la aplicación
+COPY . .
+
+# Exponer el puerto en el que Django correrá
+EXPOSE 8000
+
+# Definir el comando de arranque con el servidor de desarrollo de Django
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
 ```
+
+```
+
+
 #!/bin/bash
 
 # Crear red y volúmenes
@@ -28,12 +53,24 @@ docker run -d \
   -v static_data:/app/static \
   django_app
 
+nginx.conf
+server {
+    listen 80;
+
+    location / {
+        proxy_pass http://django_container:8000;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+}
+
 # Ejecutar Nginx
 docker run -d \
   --name nginx_container \
   --network my_network \
   -p 80:80 \
-  -v $(pwd)/nginx.conf:/etc/nginx/conf.d/default.conf \
+  -v "$(pwd)/nginx.conf:/etc/nginx/conf.d/default.conf" \
   nginx:latest
 
 # Dar permisos de ejecución y ejecutar el script
@@ -41,6 +78,8 @@ docker run -d \
 chmod +x deploy.sh
 ./deploy.sh
 ```
+
+
 
 ---
 
